@@ -9,8 +9,8 @@
 function getFiles() {
   var user = "user@domain.ext";
   var scopes = ["https://www.googleapis.com/auth/drive"];
-  var w2d = new w2d(user,scopes,key);
-  var wtoken = w2d.getToken();
+  var w2dInstance = new w2d(user,scopes,key);
+  var wtoken = w2dInstance.getToken();
   Logger.log(wtoken);
   
   var params ={headers: {Authorization:" OAuth "+wtoken.token}};
