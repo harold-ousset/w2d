@@ -82,9 +82,8 @@ function w2d(user,scopes,jsonKey) {
   }
   this.token = {"token":respObj.access_token,"user":this.sub,"validityTime":exp};
     return this.token;
-  }
+  };
   
-
   this.getToken = function(){
     if(this.token.token===undefined){
       Logger.log("no token getting a new one");
@@ -96,5 +95,5 @@ function w2d(user,scopes,jsonKey) {
     }
     Logger.log("getting actual token");
     return this.token;
-  }
+  };
 }
