@@ -23,15 +23,15 @@ an Object containing at least {client_email, private_key}
 
 > **demo.gs**  
 
-```
+```javascript
 function log2000FirstFiles() {
   var user = 'email@domain.ext';
   var scopes = ['https://www.googleapis.com/auth/drive'];
-  var key = {
+  var jsonKey = { // replace with your own credentials
     client_email: 'id@project_id.iam.gserviceaccount.com',
     private_key: '-----BEGIN PRIVATE KEY-----\n***********\n-----END PRIVATE KEY-----\n',
   };
-  var token = new wd2(user, scopes, key).getToken().token;
+  var token = new w2d(user, scopes, jsonKey).getToken().token;
   var files = [];
   var pageToken;
 
