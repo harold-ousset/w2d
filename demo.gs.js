@@ -198,3 +198,36 @@ function getMails(user, token, q) {
   while (pageToken && pageToken !== '' && mailCount < 2000);
   return mailCount;
 }
+
+/**
+* fetch a url with exponential backoff
+* @param {String} url, url to fetch
+* @parma {Object} params, parameters to provide to the urlFetch
+* @return {String} the content text of the return
+**/
+function fetchUrlFailProof(url, params){
+  var result;
+  for (var i = 0; i < 6; i++) {
+    try {
+      result = UrlFetchApp.fetch(url, params);
+      if(result.getResponseCode() == 200) {
+       break; 
+      }
+
+    }
+    catch(err){
+      //Logger.log(i + err);
+    }
+    if (i < 5 ) {
+      //Logger.log("going to sleep a little");
+      Utilities.sleep((Math.pow(2,i)*1000) + (Math.round(Math.random() * 1000)));
+    }
+  }
+  if(result.getResponseCode() == 200){
+    return result.getContentText(); 
+  }
+  console.log('Going to fail with result code: ' + result.getResponseCode() + 'and response: ' + result.getContentText());
+  console.log(url);
+  console.log(params);
+  throw {name:'miserably failed to fetch url ' + url, message:JSON.stringify(params)};
+}
