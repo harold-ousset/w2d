@@ -17,19 +17,21 @@ limitations under the License.
 
 /**
 * PROCESS TO OBTAIN A KEY
-Open the google console
-https://console.developers.google.com
+Open the google console: https://console.developers.google.com
 open a project Or create a new project
-Activate teh desired API
-Go to the id tab
-Fill the informations in the 2d tab authorisation screen (name the app)
-Create some ID (Service account) (select "other")
-Save the JSON (that's what we call jsonkey here)
-Edit the created Service account (3 dot at the right of the line - you may need to scroll)
-Activate delegation at the Domain level
-Open the admin console and go to the managed clients https://admin.google.com/AdminHome?chromeless=1#OGX:ManageOauthClients
-enter the ID of the service account and the scope of interest
-DONE !
+Activate the desired API from the API page: https://console.cloud.google.com/apis/dashboard?project=XXXX
+Go to the credentials>Oauth consent screen tab: https://console.cloud.google.com/apis/credentials/consent?project=XXXX
+Fill "Product name shown to users " and save
+From the "credential" tab https://console.cloud.google.com/apis/credentials?project=XXXXX
+Create some ID (Service account key) (select "other")
+Save the JSON (that's what we will call jsonKey here)
+From the part manage service accounts: https://console.cloud.google.com/iam-admin/serviceaccounts?project=XXXXX
+Edit the created Service account (click the 3 dot at the right of the line under "Action" - you may need to scroll)
+Click "SHOW DOMAIN-WIDE DELEGATION"
+Select "Enable G Suite Domain-wide Delegation"
+From a new Chrome tab open the Google Admin Console and go to the managed clients https://admin.google.com/AdminHome?chromeless=1#OGX:ManageOauthClients
+enter the "Unique ID" of the service account and the scope(s) of interest (the unique ID is not the Key Id --> What have you done Google!)
+You are good to go!
 **/
 
 /**
