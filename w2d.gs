@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Harold Ousset
+Copyright 2018 Harold Ousset
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ Go to the id tab
 Fill the informations in the 2d tab authorisation screen (name the app)
 Create some ID (Service account) (select "other")
 Save the JSON (that's what we call jsonkey here)
-Modify the created Id (3 dot at the right of the line)
+Edit the created Service account (3 dot at the right of the line - you may need to scroll)
 Activate delegation at the Domain level
 Open the admin console and go to the managed clients https://admin.google.com/AdminHome?chromeless=1#OGX:ManageOauthClients
 enter the ID of the service account and the scope of interest
@@ -33,11 +33,10 @@ DONE !
 **/
 
 /**
-* Function that obtain a Token
-* @param {String} user for witch we want the dbl oauth
+* Function that generate an access token for user from the wide delegation
+* @param {String} user, email address of the user for witch we want an access token
 * @param {Array} Scopes, the list of the scopes needed
-* @param {String} JSON_Key, the key obtained from teh wide domain process stringifyed
-* @return {String} token to use
+* @param {Object} jsonKey, the service account key obtained from the wide domain process
 **/
 function w2d(user, scopes, jsonKey) {
   this.token = {};
@@ -61,7 +60,8 @@ function w2d(user, scopes, jsonKey) {
 
   var sign = Utilities.computeRsaSha256Signature(
     (encodedHeader + '.' + encodedClaim),
-    jsonKey.private_key, Utilities.Charset.UTF_8
+    jsonKey.private_key,
+    Utilities.Charset.UTF_8
   );
   var encodedSignature = Utilities.base64Encode(sign);
 
@@ -92,22 +92,22 @@ function w2d(user, scopes, jsonKey) {
 
   this.getToken = function () {
     if (this.token.token === undefined) {
-      Logger.log('no token getting a new one');
+      //no token getting a new one
       return this.generateToken();
     }
 
     if (Number(this.token.validityTime) <
     (Number((Date.now() / 1000).toString().substr(0, 10)) - 10)) {
-      Logger.log('token out of date getting a new one');
+      //token out of date getting a new one
       return this.generateToken();
     }
 
-    Logger.log('getting actual token');
+    //getting actual token
     return this.token;
   };
 }
 
-// a demo json key needde for the wd2
+// a demo json key needed for the wd2
 var jsonKey = {
   type: 'service_account',
   project_id: 'project-name',
